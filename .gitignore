@@ -119,6 +119,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+smr-ky/
 
 # Spyder project settings
 .spyderproject
