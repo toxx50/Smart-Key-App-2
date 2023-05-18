@@ -4,16 +4,54 @@ from smart_key_konstante import *
 from db_sqlalchemy_file import *
 import tkinter as tk
 
-def lb_select_handler():
-    pass
-def bell_ring():
-    return 'RING!!!RING!!!RING!!!\U0001F514\U0001F514\U0001F514'
+
 
 def frame_destroy():
     for frame in main_frame.winfo_children():
             frame.destroy()
 
+def bell_ring():
+    return 'RING!!!RING!!!RING!!!\U0001F514\U0001F514\U0001F514'
 
+def door_unlock():
+    frame_destroy()
+    lb_door = tk.Label(main_frame, text='\U0001F511 ULAZNA VRATA SU OTKLJUČANA!', font=("Bold", 19), bg="navy",
+                      foreground="white")
+    lb_door.place(x=5, y=5)
+def guest_profile_act():
+    frame_destroy()
+
+    lb_key = tk.Label(main_frame, text='\U0001F511', font=("Bold", 20), bg="navy",
+                          foreground="white")
+    lb_key.place(x=5, y=5)
+    btn_enter = tk.Button(main_frame, text=" OTKLJUČAJ ", command=door_unlock)
+    btn_enter.place(x=10, y=150)
+
+def admin_profile_act():
+    frame_destroy()
+    #regionDELETE BUTTON
+    """
+    username_del = str(input("Unesi username koji želiš izbrisati: ")).lower()
+    try:
+        user_delete = session.query(User).filter(User.username == username_del).first()
+        session.delete(user_delete)
+        session.commit()
+        print(f"Korisnik '{user_delete}' je izbrisan!")
+    except Exception as ex:
+        print(f"Dogodila se greska {ex}")
+        """
+    #endregion
+    #regionEDIT BUTTON
+    None
+    #endregion
+    #regionADD BUTTON
+    #button -> command=create_new_user
+    """create_new_user()"""
+    #endregion
+    #regionUNLOCK BUTTON
+    btn_enter = tk.Button(main_frame, text=" OTKLJUČAJ ", command=door_unlock)
+    btn_enter.place(x=10, y=150)
+    #endregion
 
 def log_in():
     frame_destroy()
@@ -21,33 +59,47 @@ def log_in():
         username_login = lbl_usr_log.get()
         password_login = lbl_pass_log.get()
 
-        if username_login in lst_user and password_login in lst_pass:
-            print("wazzupp")
+        if username_login in lst_user and password_login in lst_pass and username_login not in lst_admn:
+            guest_profile_act()
+        elif username_login in lst_user and password_login in lst_pass and username_login in lst_admn:
+            admin_profile_act()
         else:
             frame_destroy()
             lb_usr_log = tk.Label(main_frame, text='Username ili password su netočni!', font=("Bold", 14), bg="navy",
                                   foreground="white")
             lb_usr_log.place(x=5, y=5)
             btn_enter = tk.Button(main_frame, text=" BACK ", command=log_in)
-            btn_enter.place(x=10, y=150,)
+            btn_enter.place(x=10, y=150)
+
+    def show_password():
+        if lbl_pass_log.cget('show') == '*':
+            lbl_pass_log.config(show='')
+        else:
+            lbl_pass_log.config(show='*')
 
 
 
-    lb_usr_log = tk.Label(main_frame, text='LOG IN\n\n  username: ', font=("Bold", 14), bg="navy", foreground="white")
+    lb_usr_log = tk.Label(main_frame, text='LOG IN\n\n  username: ',
+                          font=("Bold", 14), bg="navy", foreground="white")
     lb_usr_log.place(x=5, y=5)
 
     lbl_usr_log = tk.Entry(main_frame, width=25)
     lbl_usr_log.place(x=150, y=54)
 
-    lb_pass_log = tk.Label(main_frame, text='\n  password: ', font=("Bold", 14), bg="navy", foreground="white")
+    lb_pass_log = tk.Label(main_frame, text='\n  password: ', font=("Bold", 14),
+                           bg="navy", foreground="white")
     lb_pass_log.place(x=5, y=70)
 
-    lbl_pass_log = tk.Entry(main_frame, width=25)
+    lbl_pass_log = tk.Entry(main_frame,show='*', width=25)
     lbl_pass_log.place(x=150, y=99)
 
     btn_enter = tk.Button(main_frame, text="ENTER", command=submit_login)
-    btn_enter.place(x=250, y=130)
+    btn_enter.place(x=260, y=150)
 
+    check_button = tk.Checkbutton(main_frame,text='show password',
+                                  bg='navy',foreground='red',
+                                  command=show_password)
+    check_button.place(x=145, y=120)
 def create_new_user():
     frame_destroy()
 
@@ -57,17 +109,16 @@ def create_new_user():
         last = lbl_last.get()
         username = lbl_username.get().lower()
         password = lbl_password.get()
-        #admin = lbl_admin.get()
-        print(ssn)
-        print(type(ssn))
+        admin = adm_var.get()
+
 
         #region DESTROY
         frame_destroy()
-        lbl_ssn.destroy()
+        """lbl_ssn.destroy()
         lbl_first.destroy()
         lbl_last.destroy()
         lbl_username.destroy()
-        lbl_password.destroy()
+        lbl_password.destroy()"""
         #endregion
         if username in lst_user:
             lb_user = tk.Label(main_frame, text='USERNAME VEĆ POSTOJI! POKUŠAJTE PONOVO',
@@ -75,8 +126,9 @@ def create_new_user():
             lb_user.place(x=5, y=5)
             btn_ok = tk.Button(main_frame, text=" BACK ", command=create_new_user)
             btn_ok.place(x=400, y=170)
-        elif int(ssn) in lst_ssn:
-            lb_ssn = tk.Label(main_frame, text='ERROR: Social Security Number VEĆ POSTOJI!',
+
+        elif ssn == '' or int(ssn) in lst_ssn:
+            lb_ssn = tk.Label(main_frame, text='ERROR: Social Security Number INVALID ENTRY!',
                                font=("Bold", 15), bg="navy", foreground="white")
             lb_ssn.place(x=5, y=5)
             btn_ok = tk.Button(main_frame, text=" BACK ", command=create_new_user)
@@ -91,21 +143,15 @@ def create_new_user():
 
         else:
             #region DATABASE
-            db_user = User(ssn,first,last,username,password,admin="DA")
+            db_user = User(ssn,first,last,username,password,admin)
             session.add(db_user)
             session.commit()
             #endregion
             log_in()
 
 
-        print(ssn, first, last, username, password)
-
-
-
-
-
-
-    lb = tk.Label(main_frame, text='KREIRANJE KORISNIKA', font=("Bold", 15), bg="navy", foreground="white")
+    lb = tk.Label(main_frame, text='KREIRANJE KORISNIKA',
+                  font=("Bold", 15), bg="navy", foreground="white")
     lb.place(x=5, y=5)
 
     #region SSN
@@ -149,24 +195,21 @@ def create_new_user():
     #endregion
 
     #region ADMIN
-    #insert checkbox y/n
+    adm_var = tk.StringVar()
+    adm_var.set('NO')
+
+    rb_y = tk.Radiobutton(main_frame, text='YES', variable=adm_var, value='YES', bg='navy', foreground='dark grey')
+    rb_y.place(x=380, y=59)
+
+    rb_n = tk.Radiobutton(main_frame, text='NO', variable=adm_var, value='NO', bg='navy', foreground='dark grey')
+    rb_n.place(x=428, y=59)
+
     lb_admin = tk.Label(main_frame, text='ADMIN: ', font=("Bold", 13), bg="navy", foreground="white")
     lb_admin.place(x=400, y=39)
-
-    #lbl_admin = tk.Entry(main_frame, width=25)
-    #lbl_admin.place(x=160, y=54)
     #endregion
-
-    print(lst_user)
-    print(lst_ssn)
-
-    if 43343434 in lst_ssn:
-        print("hi")
-
 
     btn_enter = tk.Button(main_frame, text="ENTER", command=submit_user_info)
     btn_enter.place(x=400, y=170)
-
 
 
 def new_user():
@@ -176,33 +219,28 @@ def new_user():
         if master == "1234":
             create_new_user()
         elif master != "1234":
+            frame_destroy()
             lb = tk.Label(main_frame,
                           text='ŠALJEMO UPOZORENJE VLASNIKU STANA \nZA MOGUĆE NEOVLAŠTENO KREIRANJE KLJUČA!',
                           font=("Bold", 15), bg="navy", foreground="white")
             lb.place(x=10, y=20)
 
 
-
-
-    lb = tk.Label(main_frame, text='UNESI MASTER KEY:', font=("Bold", 15), bg="navy",foreground="white")
+    lb = tk.Label(main_frame, text='UNESI MASTER KEY:', font=("Bold", 15),
+                  bg="navy",foreground="white")
     lb.place(x=20,y=20)
 
     btn_enter = tk.Button(main_frame, text="ENTER", command=submit)
     btn_enter.place(x=160,y=60)
 
-    lbl_entry = tk.Entry(main_frame, width=15)
+    lbl_entry = tk.Entry(main_frame,show='*', width=15)
     lbl_entry.place(x=50,y=62)
-
 
 def bell():
     frame_destroy()
-    lb = tk.Label(main_frame, text=bell_ring(),font=("Bold",15), bg="navy", foreground="white")
+    lb = tk.Label(main_frame, text=bell_ring(),font=("Bold",15),
+                  bg="navy", foreground="white")
     lb.place(x=10,y=5)
-
-
-
-
-
 
 
 
@@ -211,14 +249,20 @@ main_window = tk.Tk()
 main_window.title('SMART KEY')
 main_window.geometry('600x800')
 
-lbl_app_title = tk.Label(main_window, text=f'WELCOME TO {NAME} FAMILY', font=TITLE_FONT)
+background_img = tk.PhotoImage(file='hd-modern-dark-blue.png')
+tk.Label(main_window, image=background_img).place(x=-2,y=-2)
+icon = tk.PhotoImage(file='keys.png')
+main_window.iconphoto(True,icon)
+
+lbl_app_title = tk.Label(main_window, text='SLAVONSKA AVENUE St.\n205',bg='#212121', font=TITLE_FONT,foreground='white')
 lbl_app_title.pack(pady=TITLE_PADY,padx=TITLE_PADX)
 
-frm_header = tk.LabelFrame(main_window, text='Portofon', font=BODY_FONT)
+frm_header = tk.LabelFrame(main_window, text='Portofon',font=BODY_FONT,bg='#212121',foreground='#1080F0')
 frm_header.pack(padx=BODY_PADX, pady=BODY_PADY, fill=tk.BOTH)
 frm_header.columnconfigure(index=0,weight=2)
 frm_header.columnconfigure(index=1,weight=4)
 frm_header.columnconfigure(index=2,weight=2)
+
 
 btn_create = tk.Button(frm_header, text='Create User', bg="light blue", command=new_user)
 btn_create.grid(row=0,column=0, padx=BTN_PADX, pady=BTN_PADY, ipadx=BTN_IPADX, ipady=BTN_IPADY)
@@ -269,7 +313,7 @@ btn_create.grid(row=3,column=4, padx=BTN_PADX, pady=BTN_PADY, ipadx=BTN_IPADX, i
 #endregion
 
 #region BODY
-frm_body = tk.LabelFrame(main_window, text='Display', font=BODY_FONT)
+frm_body = tk.LabelFrame(main_window, text='Display',bg='#212121', font=BODY_FONT,foreground='#1080F0')
 frm_body.pack(padx=BODY_PADX, pady=BODY_PADY, fill='both')
 
 
