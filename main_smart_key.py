@@ -27,30 +27,56 @@ def guest_profile_act():
     btn_enter = tk.Button(main_frame, text=" OTKLJUČAJ ", command=door_unlock)
     btn_enter.place(x=10, y=150)
 
+def delete_user():
+    frame_destroy()
+    def delete():
+        username_del = lbl_user_del.get().lower()
+        frame_destroy()
+        try:
+            if username_del in lst_user:
+                user_delete = session.query(User).filter(User.username == username_del).first()
+                session.delete(user_delete)
+                session.commit()
+                lb_deleted = tk.Label(main_frame,text=f'User {username_del} is deleted!')
+                lb_deleted.place(x=20,y=20)
+            else:
+                lb_notdeleted = tk.Label(main_frame, text=f'User >{username_del}< do not exist!',
+                                         font=('Bold',18),bg='navy',foreground='white')
+                lb_notdeleted.place(x=20, y=20)
+                bt_del = tk.Button(main_frame, text=' BACK ', command=delete_user)
+                bt_del.place(x=20,y=150)
+
+        except Exception as ex:
+            print(f"Dogodila se greska {ex}")
+
+    lb_del_mes = tk.Label(main_frame, text='Type USERNAME to DELETE',
+                          font=('Bold',18),bg='navy',foreground='white')
+    lb_del_mes.place(x=20,y=20)
+    lbl_user_del = tk.Entry(main_frame, width=25)
+    lbl_user_del.place(x=50,y=70)
+    btn_delete = tk.Button(main_frame, text='DELETE',command=delete)
+    btn_delete.place(x=210,y=67)
+
+def edit_user():
+    pass
+
 def admin_profile_act():
     frame_destroy()
     #regionDELETE BUTTON
-    """
-    username_del = str(input("Unesi username koji želiš izbrisati: ")).lower()
-    try:
-        user_delete = session.query(User).filter(User.username == username_del).first()
-        session.delete(user_delete)
-        session.commit()
-        print(f"Korisnik '{user_delete}' je izbrisan!")
-    except Exception as ex:
-        print(f"Dogodila se greska {ex}")
-        """
+    btn_user_del = tk.Button(main_frame, text=' DELETE USER ', command=delete_user)
+    btn_user_del.place(x=390,y=150)
     #endregion
     #regionEDIT BUTTON
-    None
+    btn_user_del = tk.Button(main_frame, text=' EDIT USER ', command=edit_user)
+    btn_user_del.place(x=290, y=150)
     #endregion
-    #regionADD BUTTON
-    #button -> command=create_new_user
-    """create_new_user()"""
-    #endregion
-    #regionUNLOCK BUTTON
+    #regionADD USER BUTTON
+    btn_enter = tk.Button(main_frame, text=" CREATE NEW USER ", command=create_new_user)
+    btn_enter.place(x=140, y=150)
+    #endregion #
+    #regionUNLOCK DOOR BUTTON
     btn_enter = tk.Button(main_frame, text=" OTKLJUČAJ ", command=door_unlock)
-    btn_enter.place(x=10, y=150)
+    btn_enter.place(x=30, y=150)
     #endregion
 
 def log_in():
@@ -71,13 +97,12 @@ def log_in():
             btn_enter = tk.Button(main_frame, text=" BACK ", command=log_in)
             btn_enter.place(x=10, y=150)
 
+    # regionLOGIN WINDOW
     def show_password():
         if lbl_pass_log.cget('show') == '*':
             lbl_pass_log.config(show='')
         else:
             lbl_pass_log.config(show='*')
-
-
 
     lb_usr_log = tk.Label(main_frame, text='LOG IN\n\n  username: ',
                           font=("Bold", 14), bg="navy", foreground="white")
@@ -100,6 +125,9 @@ def log_in():
                                   bg='navy',foreground='red',
                                   command=show_password)
     check_button.place(x=145, y=120)
+    #endregion
+
+
 def create_new_user():
     frame_destroy()
 

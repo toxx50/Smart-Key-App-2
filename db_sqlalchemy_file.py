@@ -111,7 +111,7 @@ def user_login():
 
 
 
-#dodaj iteme iz baze u listu i onda prođi kroz sve fileove
+#dodani itemi iz baze u listu
 
 lst_user = []
 lst_pass = []
