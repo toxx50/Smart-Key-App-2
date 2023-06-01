@@ -1,4 +1,6 @@
 # KONSTANTE
+
+
 TITLE_PADX = 5
 TITLE_PADY = (20,10)
 TITLE_FONT = ('Verdana', 18)
@@ -20,10 +22,19 @@ BTN_FONT = ('Verdana', 12)
 BTN_NUM_PADX = 2
 BTN_NUM_PADY = 2
 
+#region MASTER KEY
+MASTER_KEY = '1234'
+#endregion
 
+#region BELL RING
+BELL_RING = 'RING!!!RING!!!RING!!!\U0001F514\U0001F514\U0001F514'
+#endregion
 
-
-
+#region COLORS
+NAVY = 'navy'
+DARK_GREY = 'dark grey'
+WHITE = 'white'
+#endregion
 
 X = 30
 NAME = 'ALGEBRA'
