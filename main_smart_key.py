@@ -1,7 +1,7 @@
 #from db_sqlalchemy_file import *
 #from features import bell_ring, DoorUnlock
 import tkinter as tk
-from smart_key_konstante import *
+from files_smk.smart_key_konstante import *
 from db_sqlalchemy_file import *
 
 
@@ -18,7 +18,7 @@ def bell_ring():
 
 def door_unlock():
     frame_destroy()
-    lb_door = tk.Label(main_frame, text='\U0001F511 ULAZNA VRATA SU OTKLJUČANA!', font=("Bold", 19), bg="navy",
+    lb_door = tk.Label(main_frame, text='\U0001F511 THE DOORS ARE UNLOCKED!', font=("Bold", 19), bg="navy",
                       foreground="white")
     lb_door.place(x=5, y=5)
 def guest_profile_act():
@@ -27,7 +27,7 @@ def guest_profile_act():
     lb_key = tk.Label(main_frame, text='\U0001F511', font=("Bold", 20), bg=NAVY,
                           foreground=WHITE)
     lb_key.place(x=5, y=5)
-    btn_enter = tk.Button(main_frame, text=" OTKLJUČAJ ", command=door_unlock)
+    btn_enter = tk.Button(main_frame, text=" UNLOCK ", command=door_unlock)
     btn_enter.place(x=10, y=150)
 
 def delete_user():
@@ -150,11 +150,11 @@ def edit_admin():
     adm_var = tk.StringVar()
     adm_var.set('NE')
 
-    rb_y = tk.Radiobutton(main_frame, text='DA', variable=adm_var,
+    rb_y = tk.Radiobutton(main_frame, text='YES', variable=adm_var,
                           value='DA', bg=NAVY, foreground=DARK_GREY)
     rb_y.place(x=20, y=120)
 
-    rb_n = tk.Radiobutton(main_frame, text='NE', variable=adm_var,
+    rb_n = tk.Radiobutton(main_frame, text='NO', variable=adm_var,
                           value='NE', bg=NAVY, foreground=DARK_GREY)
     rb_n.place(x=68, y=120)
 
@@ -195,7 +195,7 @@ def admin_profile_act():
     btn_enter.place(x=140, y=150)
     #endregion #
     #regionUNLOCK DOOR BUTTON
-    btn_enter = tk.Button(main_frame, text=" OTKLJUČAJ ", command=door_unlock)
+    btn_enter = tk.Button(main_frame, text=" UNLOCK ", command=door_unlock)
     btn_enter.place(x=30, y=150)
     #endregion
 
@@ -281,14 +281,14 @@ def create_new_user():
             btn_ok.place(x=400, y=170)
 
         elif username in lst_user or username == '':
-            lb_user = tk.Label(main_frame, text='USERNAME VEĆ POSTOJI! POKUŠAJTE PONOVO',
+            lb_user = tk.Label(main_frame, text='USERNAME ALREADY EXIST! TRY AGAIN!',
                           font=("Bold", 15), bg="navy", foreground="white")
             lb_user.place(x=5, y=5)
             btn_ok = tk.Button(main_frame, text=" BACK ", command=create_new_user)
             btn_ok.place(x=400, y=170)
 
         elif len(password) < 6:
-            lb_pass = tk.Label(main_frame, text='PASWORD MORA SADRŽAVAT PREKO 5 ZNAKOVA',
+            lb_pass = tk.Label(main_frame, text='PASSWORD MUST CONTAIN OVER 5 CHARACTERS',
                           font=("Bold", 15), bg="navy", foreground="white")
             lb_pass.place(x=5, y=5)
             btn_ok = tk.Button(main_frame, text=" BACK ", command=create_new_user)
@@ -302,12 +302,12 @@ def create_new_user():
             log_in()
 
 
-    lb = tk.Label(main_frame, text='KREIRANJE KORISNIKA',
+    lb = tk.Label(main_frame, text='CREATE USER',
                   font=("Bold", 15), bg="navy", foreground="white")
     lb.place(x=5, y=5)
 
     #region SSN
-    lb_ssn = tk.Label(main_frame, text='Unesi SSN:',
+    lb_ssn = tk.Label(main_frame, text='Enter SSN:',
                       font=("Bold", 14), bg="navy", foreground="white")
     lb_ssn.place(x=20, y=35)
 
@@ -316,7 +316,7 @@ def create_new_user():
     #endregion
 
     #region FIRST
-    lb_first = tk.Label(main_frame, text='Unesi IME:',
+    lb_first = tk.Label(main_frame, text='Enter FIRST Name:',
                         font=("Bold", 14), bg="navy", foreground="white")
     lb_first.place(x=20, y=60)
 
@@ -325,7 +325,7 @@ def create_new_user():
     #endregion
 
     #region LAST
-    lb_last = tk.Label(main_frame, text='Unesi PREZIME:',
+    lb_last = tk.Label(main_frame, text='Enter LAST Name:',
                        font=("Bold", 14), bg="navy", foreground="white")
     lb_last.place(x=20, y=85)
 
@@ -334,7 +334,7 @@ def create_new_user():
     #endregion
 
     #region USERNAME
-    lb_username = tk.Label(main_frame, text='Unesi USERNAME: ',
+    lb_username = tk.Label(main_frame, text='Enter USERNAME: ',
                            font=("Bold", 14), bg="navy", foreground="white")
     lb_username.place(x=20, y=110)
 
@@ -343,7 +343,7 @@ def create_new_user():
     #endregion
 
     #region PASSWORD
-    lb_password = tk.Label(main_frame, text='Unesi PASSWORD: ', font=("Bold", 14),
+    lb_password = tk.Label(main_frame, text='Enter PASSWORD: ', font=("Bold", 14),
                            bg="navy", foreground="white")
     lb_password.place(x=20, y=135)
 
@@ -355,11 +355,11 @@ def create_new_user():
     adm_var = tk.StringVar()
     adm_var.set('NE')
 
-    rb_y = tk.Radiobutton(main_frame, text='DA', variable=adm_var,
+    rb_y = tk.Radiobutton(main_frame, text='YES', variable=adm_var,
                           value='DA', bg=NAVY, foreground=DARK_GREY)
     rb_y.place(x=380, y=59)
 
-    rb_n = tk.Radiobutton(main_frame, text='NE', variable=adm_var,
+    rb_n = tk.Radiobutton(main_frame, text='NO', variable=adm_var,
                           value='NE', bg=NAVY, foreground=DARK_GREY)
     rb_n.place(x=428, y=59)
 
@@ -381,12 +381,12 @@ def new_user():
         elif master != MASTER_KEY:
             frame_destroy()
             lb = tk.Label(main_frame,
-                          text='ŠALJEMO UPOZORENJE VLASNIKU STANA \nZA MOGUĆE NEOVLAŠTENO KREIRANJE KLJUČA!',
+                          text='SENDING WARNING TO OWNER OF APARTMENT \nPOSSIBLE UNAUTHORIZED ENTRY!',
                           font=("Bold", 15), bg=NAVY, foreground="white")
             lb.place(x=10, y=20)
 
 
-    lb = tk.Label(main_frame, text='UNESI MASTER KEY:', font=("Bold", 15),
+    lb = tk.Label(main_frame, text='TYPE MASTER KEY:', font=("Bold", 15),
                   bg=NAVY,foreground="white")
     lb.place(x=20,y=20)
 
@@ -402,6 +402,18 @@ def bell():
                   bg=NAVY, foreground="white")
     lb.place(x=10,y=5)
 
+def numpad():
+    """
+    Numpad tipkovnica nije u funkciji.
+    """
+    frame_destroy()
+    lb = tk.Label(main_frame, text="NUMPAD IS DISABLED", font=("Bold",15),
+                  bg=NAVY, foreground="white")
+    lb.place(x=10,y=5)
+
+    """potrebno je kreirati funkciju za unos jednokratnog pina za otkljucavanje
+    ulaznih vrata, pin za jednokratnu upotrebu može kreirat samo admin """
+
 
 
 
@@ -411,9 +423,9 @@ main_window = tk.Tk()
 main_window.title('SMART KEY')
 main_window.geometry('600x800')
 
-background_img = tk.PhotoImage(file='hd-modern-dark-blue.png')
+background_img = tk.PhotoImage(file='files_smk/hd-modern-dark-blue.png')
 tk.Label(main_window, image=background_img).place(x=-2,y=-2)
-icon = tk.PhotoImage(file='keys.png')
+icon = tk.PhotoImage(file='files_smk/keys.png')
 main_window.iconphoto(True,icon)
 
 lbl_app_title = tk.Label(main_window, text='SLAVONSKA AVENUE St.\n205',bg='#212121', font=TITLE_FONT,foreground='white')
@@ -437,40 +449,40 @@ btn_bellring.grid(row=2,column=0 , padx=BTN_PADX, pady=BTN_PADY, ipadx=BTN_IPADX
 #endregion
 
 #region NUMPAD
-btn_create = tk.Button(frm_header, text='7', bg="light blue", command=1)
+btn_create = tk.Button(frm_header, text='7', bg="light blue", command=numpad)
 btn_create.grid(row=0,column=2, padx=0, pady=0, ipadx=BTN_IPADX, ipady=BTN_IPADY)
 
-btn_create = tk.Button(frm_header, text='8', bg="light blue", command=1)
+btn_create = tk.Button(frm_header, text='8', bg="light blue", command=numpad)
 btn_create.grid(row=0,column=3, padx=30, pady=0, ipadx=BTN_IPADX, ipady=BTN_IPADY)
 
-btn_create = tk.Button(frm_header, text='9', bg="light blue", command=1)
+btn_create = tk.Button(frm_header, text='9', bg="light blue", command=numpad)
 btn_create.grid(row=0,column=4 , padx=30, pady=0, ipadx=BTN_IPADX, ipady=BTN_IPADY)
 
-btn_create = tk.Button(frm_header, text='4', bg="light blue", command=1)
+btn_create = tk.Button(frm_header, text='4', bg="light blue", command=numpad)
 btn_create.grid(row=1,column=2, padx=BTN_PADX, pady=BTN_PADY, ipadx=BTN_IPADX, ipady=BTN_IPADY)
 
-btn_create = tk.Button(frm_header, text='5', bg="light blue", command=1)
+btn_create = tk.Button(frm_header, text='5', bg="light blue", command=numpad)
 btn_create.grid(row=1,column=3, padx=BTN_PADX, pady=BTN_PADY, ipadx=BTN_IPADX, ipady=BTN_IPADY)
 
-btn_create = tk.Button(frm_header, text='6', bg="light blue", command=1)
+btn_create = tk.Button(frm_header, text='6', bg="light blue", command=numpad)
 btn_create.grid(row=1,column=4, padx=BTN_PADX, pady=BTN_PADY, ipadx=BTN_IPADX, ipady=BTN_IPADY)
 
-btn_create = tk.Button(frm_header, text='1', bg="light blue", command=1)
+btn_create = tk.Button(frm_header, text='1', bg="light blue", command=numpad)
 btn_create.grid(row=2,column=2, padx=BTN_PADX, pady=BTN_PADY, ipadx=BTN_IPADX, ipady=BTN_IPADY)
 
-btn_create = tk.Button(frm_header, text='2', bg="light blue", command=1)
+btn_create = tk.Button(frm_header, text='2', bg="light blue", command=numpad)
 btn_create.grid(row=2,column=3, padx=BTN_PADX, pady=BTN_PADY, ipadx=BTN_IPADX, ipady=BTN_IPADY)
 
-btn_create = tk.Button(frm_header, text='3', bg="light blue", command=1)
+btn_create = tk.Button(frm_header, text='3', bg="light blue", command=numpad)
 btn_create.grid(row=2,column=4, padx=BTN_PADX, pady=BTN_PADY, ipadx=BTN_IPADX, ipady=BTN_IPADY)
 
-btn_create = tk.Button(frm_header, text='*', bg="light blue", command=1)
+btn_create = tk.Button(frm_header, text='*', bg="light blue", command=numpad)
 btn_create.grid(row=3,column=2, padx=BTN_PADX, pady=BTN_PADY, ipadx=BTN_IPADX, ipady=BTN_IPADY)
 
-btn_create = tk.Button(frm_header, text='0', bg="light blue", command=1)
+btn_create = tk.Button(frm_header, text='0', bg="light blue", command=numpad)
 btn_create.grid(row=3,column=3, padx=BTN_PADX, pady=BTN_PADY, ipadx=BTN_IPADX, ipady=BTN_IPADY)
 
-btn_create = tk.Button(frm_header, text='#', bg="light blue", command=1)
+btn_create = tk.Button(frm_header, text='#', bg="light blue", command=numpad)
 btn_create.grid(row=3,column=4, padx=BTN_PADX, pady=BTN_PADY, ipadx=BTN_IPADX, ipady=BTN_IPADY)
 #endregion
 
